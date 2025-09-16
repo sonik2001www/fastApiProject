@@ -124,3 +124,12 @@ fabric.properties
 
 # Cache file creation bug
 # See https://youtrack.jetbrains.com/issue/JBR-2257
+
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
