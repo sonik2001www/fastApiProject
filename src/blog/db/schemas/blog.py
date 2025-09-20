@@ -25,5 +25,3 @@ class BlogResponse(BlogBase):
 
     class Config:
         orm_mode = True
-
-
