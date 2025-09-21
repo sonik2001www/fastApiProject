@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from .common import UserShort
 
 
 class BlogBase(BaseModel):
@@ -8,7 +9,7 @@ class BlogBase(BaseModel):
 
 
 class BlogCreate(BlogBase):
-    pass
+    user_id: int
 
 
 class BlogUpdate(BlogBase):
@@ -22,6 +23,8 @@ class BlogPatch(BaseModel):
 
 class BlogResponse(BlogBase):
     id: int
+    user_id: int
+    owner: UserShort
 
     class Config:
         from_attributes = True
