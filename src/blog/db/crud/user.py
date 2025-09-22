@@ -26,6 +26,10 @@ def get_user(db: Session, user_id: int):
     return user
 
 
+def get_user_by_email(db: Session, email: str) -> models.User | None:
+    return db.query(models.User).filter(models.User.email == email).first()
+
+
 def patch_user(db: Session, user_id: int, user: schemas.UserPatch):
     old_user = get_user(db, user_id)
 

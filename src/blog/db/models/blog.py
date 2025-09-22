@@ -10,6 +10,6 @@ class Blog(Base):
     title = Column(String, index=True)
     body = Column(String)
 
-    user_id = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete='CASCADE'))
 
     owner = relationship("User", back_populates="blogs")

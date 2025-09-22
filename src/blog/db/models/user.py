@@ -11,4 +11,8 @@ class User(Base):
     email = Column(String(120), unique=True, nullable=False)
     hashed_password = Column(String(255), nullable=False)
 
-    blogs = relationship("Blog", back_populates="owner")
+    blogs = relationship(
+        "Blog",
+        back_populates="owner",
+        cascade="all, delete-orphan"
+    )
