@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from ..db import crud, schemas, database
+
+from ..core.security import get_current_user, oauth2_scheme
+from ..db import crud, schemas, database, models
 
 router = APIRouter(
     prefix="/blogs",
@@ -13,8 +15,13 @@ def create_blog(blog: schemas.BlogCreate, db: Session = Depends(database.get_db)
     return crud.create_blog(db=db, blog=blog)
 
 
-@router.get("/", response_model=list[schemas.BlogResponse])
-def read_blogs(skip: int = 0, limit: int = 10, db: Session = Depends(database.get_db)):
+@router.get("/", response_model=list[schemas.BlogResponse], dependencies=[Depends(oauth2_scheme)])
+def read_blogs(
+    skip: int = 0,
+    limit: int = 10,
+    db: Session = Depends(database.get_db),
+    current_user: models.User = Depends(get_current_user),
+):
     return crud.get_blogs(db, skip=skip, limit=limit)
 
 
